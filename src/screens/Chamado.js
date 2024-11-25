@@ -13,8 +13,7 @@ export const Chamado = () => {
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
     const [repairDetails, setRepairDetails] = useState('');
-    const [suggestionImages, setSuggestionImages] = useState([]); // Novo estado para imagens das sugestões
-
+    const [suggestionImages, setSuggestionImages] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,8 +24,8 @@ export const Chamado = () => {
             serviceType,
             desiredDate,
             preferredTechnician,
-            image: '', // Inicialmente vazio
-            repairDetails // Adicionar detalhes de reparo
+            image: '',
+            repairDetails
         };
 
         try {
@@ -42,7 +41,6 @@ export const Chamado = () => {
             await set(newChamadoRef, chamadoData);
             console.log('Chamado salvo com sucesso!');
 
-            // Atualizar sugestões e imagens baseadas no tipo de serviço e detalhes de reparo
             let newSuggestions = [];
             let newSuggestionImages = [];
             if (serviceType === 'Reparo de Computadores') {
@@ -199,7 +197,7 @@ export const Chamado = () => {
     const getCurrentDate = () => {
         const today = new Date();
         const day = String(today.getDate()).padStart(2, '0');
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // Janeiro é 0
+        const month = String(today.getMonth() + 1).padStart(2, '0'); 
         const year = today.getFullYear();
         return `${year}-${month}-${day}`;
     };
@@ -293,7 +291,7 @@ export const Chamado = () => {
                                 id="desiredDate"
                                 value={desiredDate}
                                 onChange={(e) => setDesiredDate(e.target.value)}
-                                min={getCurrentDate()}  // Impede seleção de datas passadas
+                                min={getCurrentDate()}  
                                 required
                             />
                         </div>
@@ -315,7 +313,7 @@ export const Chamado = () => {
                                 onChange={(e) => setImage(e.target.files[0])}
                             />
                         </div>
-                        <button type="submit" className="submit-button">Enviar</button>
+                        <button type="submit" style={{ background: '#ffcc00', color: 'black', fontWeight: '700' }} className="submit-button">Enviar</button>
                     </form>
                 </div>
             ) : (

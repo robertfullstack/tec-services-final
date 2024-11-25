@@ -1,15 +1,29 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set, get, onValue, update, remove } from 'firebase/database'; // Importando remove
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword
+} from 'firebase/auth';
+import {
+    getDatabase,
+    ref,
+    set,
+    get,
+    onValue,
+    update,
+    remove,
+    push // Adicionando a importação do push
+} from 'firebase/database';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAaQ2F9uGHm_Z6jnahYeOjxnEgDqlXbeZg",
-    authDomain: "tec-serv-468b7.firebaseapp.com",
-    projectId: "tec-serv-468b7",
-    storageBucket: "tec-serv-468b7.appspot.com",
-    messagingSenderId: "577413763329",
-    appId: "1:577413763329:web:3709be19efba59de7b0b00"
+    apiKey: "AIzaSyAcZPFz6ixQ83zakCuCwgJmslzm3k2IaEQ",
+    authDomain: "tec-services-ef073.firebaseapp.com",
+    databaseURL: "https://tec-services-ef073-default-rtdb.firebaseio.com",
+    projectId: "tec-services-ef073",
+    storageBucket: "tec-services-ef073.appspot.com",
+    messagingSenderId: "221821393571",
+    appId: "1:221821393571:web:f107b64915d1b9f525bd16"
 };
 
 // Inicializando o Firebase
@@ -30,5 +44,6 @@ export {
     get,
     onValue,
     update,
-    remove // Exportando a função remove
+    remove,
+    push // Exportando a função push
 };

@@ -137,7 +137,7 @@ export const Ecommerce = () => {
                                 <p>R$ {product.price.toFixed(2)}</p>
                                 <button
                                     className="btn-buy"
-                                    onClick={() => handleBuyClick(product.id)} // Chama handleBuyClick
+                                    onClick={() => handleBuyClick(product.id)}
                                 >
                                     Comprar
                                 </button>

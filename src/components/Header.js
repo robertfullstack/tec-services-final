@@ -44,11 +44,12 @@ const Header = () => {
         </div>
         <nav className={`navbar ${isOpen ? 'open' : ''}`}>
           <ul className="nav-links">
-            <li><a href="#home">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/Servico">Serviços</a></li>
-            <li><a href="#about">Sobre</a></li>
-            <li><a href="#contact">Contato</a></li>
+            <li><a href="/">Sobre</a></li>
+            <li><a href="/Contato">Contato</a></li>
             <li><a href="/Ecommerce">Ecommerce</a></li>
+            {isLoggedIn && <li><a href="/Meu-perfil">Meu Perfil</a></li>} {/* Adiciona a opção Meu Perfil */}
           </ul>
           {isLoggedIn ? (
             <button className="contact-button" onClick={handleLogout}>Sair</button>

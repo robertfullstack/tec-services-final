@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { database, ref, onValue, update } from '../screens/firebase'; // Certifique-se de importar 'update' corretamente
+import { database, ref, onValue, update } from '../screens/firebase';
 import '../styles/ScreenAdmin.css';
 
 const ScreenAdmin = () => {
@@ -9,7 +9,6 @@ const ScreenAdmin = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [error, setError] = useState('');
 
-    // Função para verificar as credenciais
     const handleLogin = (e) => {
         e.preventDefault();
 
@@ -23,14 +22,11 @@ const ScreenAdmin = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            // Referência ao nó 'Chamados' no Firebase
             const chamadosRef = ref(database, 'Chamados');
 
-            // Escuta as mudanças nos dados
             const unsubscribe = onValue(chamadosRef, (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
-                    // Converte os dados em um array
                     const chamadosArray = Object.keys(data).map((key) => ({
                         id: key,
                         ...data[key],
@@ -41,16 +37,13 @@ const ScreenAdmin = () => {
                 }
             });
 
-            // Limpa o listener quando o componente desmonta
             return () => unsubscribe();
         }
     }, [isAuthenticated]);
 
-    // Função para marcar o pedido como realizado
     const handleMarkAsCompleted = (chamadoId) => {
         const chamadoRef = ref(database, `Chamados/${chamadoId}`);
 
-        // Atualiza o campo 'status' para 'realizado'
         update(chamadoRef, { status: 'realizado' })
             .then(() => {
                 console.log('Pedido marcado como realizado!');

@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { auth } from './firebase'; // Importando auth do firebase
+import { auth } from './firebase';
 import '../styles/Servico.scss';
 import React, { useEffect, useState } from 'react';
-import { database, ref, onValue, remove } from '../screens/firebase'; // Adicione "remove" do firebase
+import { database, ref, onValue, remove } from '../screens/firebase';
 
 export const Servico = ({ userId }) => {
     const [selected, setSelected] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null); // Estado para guardar o usuário logado
+    const [user, setUser] = useState(null);
     const [chamados, setChamados] = useState([]);
     const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ export const Servico = ({ userId }) => {
             const chamadosList = [];
 
             for (let id in data) {
-                if (data[id].userId === userId) { // Filtra pelos chamados do usuário
+                if (data[id].userId === userId) { 
                     chamadosList.push({ id, ...data[id] });
                 }
             }
@@ -101,7 +101,7 @@ export const Servico = ({ userId }) => {
 
             <h1 className="servico-title">Nossos Serviços</h1>
 
-            {user && <p>Olá, {user.email}</p>} {/* Exibe o e-mail do usuário logado */}
+            {user && <p>Olá, {user.email}</p>} 
 
             <div className="servico-list">
                 <div className="servico-item">
@@ -140,7 +140,7 @@ export const Servico = ({ userId }) => {
                 </div>
             </div>
 
-        
+
         </div>
     );
 }
