@@ -1,0 +1,71 @@
+/* Estilos para o container */
+.edit-chamado-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Título */
+.edit-chamado-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+/* Formulário */
+.edit-chamado-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Inputs e textarea */
+.edit-chamado-container input,
+.edit-chamado-container textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.edit-chamado-container input:focus,
+.edit-chamado-container textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Textarea específico */
+.edit-chamado-container textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Botão */
+.edit-chamado-container button {
+    padding: 0.8rem;
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-chamado-container button:hover {
+    background-color: #cfa601;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .edit-chamado-container {
+        padding: 1.5rem;
+    }
+}

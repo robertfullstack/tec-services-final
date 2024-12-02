@@ -2,7 +2,8 @@ import { initializeApp } from 'firebase/app';
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail // Adicionando a função de reset de senha
 } from 'firebase/auth';
 import {
     getDatabase,
@@ -39,6 +40,7 @@ export {
     storage,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    sendPasswordResetEmail, // Agora exportando a função de reset de senha
     ref,
     set,
     get,

@@ -12,6 +12,7 @@ import ProductDetail from './screens/ProductDetail';
 import Chat from './screens/Chat.js';
 import Contato from './screens/Contato.js';
 import MeuPerfil from './screens/MeuPerfil.js';
+import EditarChamado from './screens/EditarChamado.js';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/Contato" element={<Contato />} />
           <Route path="/Meu-perfil" element={<MeuPerfil />} />
+          <Route path="/editarChamado/:id" element={<EditarChamado />} />
+
 
         </Routes>
       </Router></>

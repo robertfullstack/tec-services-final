@@ -197,7 +197,7 @@ export const Chamado = () => {
     const getCurrentDate = () => {
         const today = new Date();
         const day = String(today.getDate()).padStart(2, '0');
-        const month = String(today.getMonth() + 1).padStart(2, '0'); 
+        const month = String(today.getMonth() + 1).padStart(2, '0');
         const year = today.getFullYear();
         return `${year}-${month}-${day}`;
     };
@@ -291,7 +291,7 @@ export const Chamado = () => {
                                 id="desiredDate"
                                 value={desiredDate}
                                 onChange={(e) => setDesiredDate(e.target.value)}
-                                min={getCurrentDate()}  
+                                min={getCurrentDate()}
                                 required
                             />
                         </div>
@@ -320,9 +320,9 @@ export const Chamado = () => {
                 <div style={{ width: '60%', margin: 'auto' }}>
 
                     <h1>Chamado Registrado com Sucesso!</h1>
-                    <p>Aqui estão os detalhes do seu chamado:</p>
+                    {/* <p>Aqui estão os detalhes do seu chamado:</p> */}
+                    {/* 
                     <div className="chamado-details">
-                        {/* FAZER RENDERIZAR AS INFORMAÇÕES SOBRE O CHAMADO AQUI!! POR QUE NÃO ESTÁ APARECENDO! */}
                         <p><strong>Responsável:</strong> </p>
                         <p><strong>Número de Contato:</strong></p>
                         <p><strong>Tipo de Serviço:</strong> </p>
@@ -331,17 +331,20 @@ export const Chamado = () => {
                         <p><strong>Preferência por Técnico:</strong> </p>
                         {image && <p><strong>Imagem:</strong> <a href={image} target="_blank" rel="noopener noreferrer">Visualizar Imagem</a></p>}
                     </div>
-                    <p>- Temos algumas sugestões para você:</p>
+                
+
+                 */}
                     {/* CODE ANTIGO: CASO EU PRECISA... ESSE ESTÁ SEM IMAGEM!! */}
                     {/* <ul>
                         {suggestions.map((suggestion, index) => (
                             <li key={index}>{suggestion}</li>
-                        ))}
-                    </ul> */}
+                            ))}
+                            </ul> */}
 
+                    <p style={{ marginBottom: '0px' }}>Temos algumas sugestões para você nesse momento:</p>
                     <ul className="suggestions-list" style={{ display: 'grid', gridTemplateColumns: '5fr 5fr', margin: 'auto', justifyContent: 'center' }}>
                         {suggestions.map((suggestion, index) => (
-                            <li key={index}>
+                            <li key={index} style={{ margin: '0 20px' }}>
                                 <p>{suggestion}</p>
                                 {suggestionImages[index] && (
                                     <img src={suggestionImages[index]} alt={`Sugestão ${index + 1}`} className="suggestion-image" style={{ width: '60%', margin: 'auto', display: 'flex' }} />

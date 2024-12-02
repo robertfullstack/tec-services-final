@@ -43,6 +43,10 @@ const Chat = () => {
     }, []);
 
     const handleStartChat = (email) => {
+        if (email === userEmail) {
+            alert("Você não pode conversar consigo mesmo.");
+            return;
+        }
         setRecipientEmail(email);
         loadMessages(email);
     };
@@ -78,70 +82,73 @@ const Chat = () => {
         const sanitizedRecipientEmail = sanitizeEmailForFirebase(recipientEmail);
 
         const roomId = [sanitizedUserEmail, sanitizedRecipientEmail].sort().join("_");
-        const chatRef = ref(database, `chats/${roomId}`);
-        const newMessageRef = push(chatRef);
 
-        set(newMessageRef, {
-            text: newMessage,
+        const messageData = {
             sender: userEmail,
+            text: newMessage,
             timestamp: Date.now(),
-        });
+        };
 
-        setNewMessage("");
+        const chatRef = ref(database, `chats/${roomId}`);
+        push(chatRef, messageData);
+
+        setNewMessage(""); // Clear the input field
+        messageEndRef.current.scrollIntoView({ behavior: "smooth" }); // Scroll to the bottom
     };
-
-    useEffect(() => {
-        // Scroll to bottom when new message is sent or received
-        if (messageEndRef.current) {
-            messageEndRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-    }, [messages]);
 
     return (
         <div className="chat-container">
             <div className="user-list">
-                <h3>Usuários</h3>
+                <h2>Usuários</h2>
                 {users.map((user) => (
                     <button
                         key={user.email}
                         onClick={() => handleStartChat(user.email)}
-                        className={recipientEmail === user.email ? "active" : ""}
                     >
                         {user.name}
                     </button>
                 ))}
             </div>
 
-            <div className="chat-window">
-                {recipientEmail ? (
-                    <>
-                        <h3>Conversa com {recipientEmail}</h3>
-                        <div className="message-list">
-                            {messages.map((msg, index) => (
-                                <div
-                                    key={index}
-                                    className={`message ${msg.sender === userEmail ? "sent" : "received"}`}
-                                >
-                                    <strong>{msg.sender === userEmail ? "Você" : recipientEmail}</strong>
-                                    <p>{msg.text}</p>
-                                </div>
-                            ))}
-                            <div ref={messageEndRef}></div> {/* Scroll target */}
-                        </div>
-                        <div className="message-input">
-                            <input
-                                type="text"
-                                placeholder="Digite sua mensagem"
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                            />
-                            <button onClick={handleSendMessage}>Enviar</button>
-                        </div>
-                    </>
-                ) : (
-                    <h3>Selecione um usuário para começar a conversar</h3>
-                )}
-            </div>
+            {recipientEmail && (
+                <div className="chat-box">
+                    <h3>Chat com: {recipientEmail}</h3>
+                    <div className="messages">
+                        {messages.length > 0 ? (
+                            messages.map((msg, index) => {
+                                // Encontre o nome do remetente na lista de usuários
+                                const senderName = users.find(user => user.email === msg.sender)?.name || msg.sender;
+
+                                return (
+                                    <div
+                                        key={index}
+                                        className={msg.sender === userEmail ? "sent" : "received"}
+                                    >
+                                        <strong>{senderName}</strong>: {msg.text}
+                                        <br />
+                                        <small>{new Date(msg.timestamp).toLocaleString()}</small>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <p>Nenhuma mensagem ainda.</p>
+                        )}
+                    </div>
+
+
+                    <div className="message-input">
+                        <input
+                            type="text"
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            placeholder="Digite sua mensagem"
+                        />
+                        <button onClick={handleSendMessage}>Enviar</button>
+                    </div>
+                </div>
+            )}
+
+            <div ref={messageEndRef}></div>
         </div>
     );
 };

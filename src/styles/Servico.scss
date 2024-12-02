@@ -359,3 +359,143 @@
         background-color: #0056b3;
     }
 }
+
+
+
+.servico-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.servico-title,
+.produto-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.servico-list,
+.produto-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.servico-item,
+.produto-item {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        color: #13131F;
+    }
+
+    p {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 20px;
+    }
+}
+
+.solicitar-servico-btn,
+.ver-produto-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #13131F;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #1f1f2e;
+    }
+}
+
+.delete-chamado-btn,
+.edit-chamado-btn {
+    padding: 8px 16px;
+    margin: 10px 5px;
+    font-size: 0.9rem;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &.delete-chamado-btn {
+        background-color: #d9534f;
+
+        &:hover {
+            background-color: #c9302c;
+        }
+    }
+
+    &.edit-chamado-btn {
+        background-color: #5bc0de;
+
+        &:hover {
+            background-color: #31b0d5;
+        }
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+#chamados-feito-por-mim {
+    margin-bottom: 40px;
+
+    h1 {
+        font-size: 2rem;
+        color: #13131F;
+        margin-bottom: 20px;
+    }
+
+    >div {
+        display: grid;
+        gap: 20px;
+    }
+
+    div {
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .servico-list,
+    .produto-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.loading-container img {
+    display: flex;
+    margin: auto;
+    width: 40px !important;
+}

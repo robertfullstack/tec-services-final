@@ -108,3 +108,14 @@ button:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
 }
+
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.chart {
+    width: 48%;
+    /* Ajuste a largura conforme necessário */
+}
