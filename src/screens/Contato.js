@@ -13,13 +13,13 @@ export const Contato = () => {
                     <i className="fas fa-map-marker-alt"></i>
                     <img src={IconeLocalizacao} width={50} style={{ marginTop: '20px' }} />
                     <h3>Nosso Escritório Principal</h3>
-                    <p>Soho 94 Broadway St<br />New York, NY 1001</p>
+                    <p> Av. Águia de Haia, 2633 <br />Cidade Antônio Estêvão de Carvalho</p>
                 </div>
                 <div className="info-box">
                     <i className="fas fa-phone-alt"></i>
                     <img src={IconeTelefone} width={50} style={{ marginTop: '20px' }} />
                     <h3>Número de Telefone</h3>
-                    <p>11 98106-1393<br />11 94547-3326 (ligação gratuita)</p>
+                    <p style={{ marginTop: '50px' }}>11 98106-1393<br />11 94547-3326 </p>
                 </div>
                 <div className="info-box">
                     <i className="fas fa-envelope"></i>

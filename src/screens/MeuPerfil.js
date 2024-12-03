@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { auth, database, ref, get, update, sendPasswordResetEmail } from './firebase'; // Certifique-se de importar corretamente
 import './MeuPerfil.scss';
+import ImagemCarregamentoGif from "../icons/icone-carregamento.gif";
 
 export const MeuPerfil = () => {
     const [userData, setUserData] = useState(null);
@@ -45,7 +46,6 @@ export const MeuPerfil = () => {
         }
 
         try {
-            // Enviar o e-mail de redefinição de senha
             await sendPasswordResetEmail(auth, userData.email);
             setResetPasswordSuccess(true);
         } catch (error) {
@@ -53,7 +53,6 @@ export const MeuPerfil = () => {
             alert('Erro ao enviar e-mail de redefinição de senha.');
         }
     };
-
 
     const handleEditProfile = async () => {
         if (!newName || !newEmail) {
@@ -71,9 +70,8 @@ export const MeuPerfil = () => {
                     email: newEmail,
                 });
 
-                // Atualiza o estado local com os novos valores
                 setUserData({ ...userData, name: newName, email: newEmail });
-                setIsEditing(false); // Desativa o modo de edição
+                setIsEditing(false);
             } catch (error) {
                 console.error('Erro ao atualizar perfil:', error);
                 alert('Erro ao atualizar perfil.');
@@ -82,7 +80,11 @@ export const MeuPerfil = () => {
     };
 
     if (loading) {
-        return <div className="loading-message">Carregando...</div>;
+        return (
+            <div className="loading-message">
+                <img style={{ display: 'flex', margin: '150px auto' }} src={ImagemCarregamentoGif} alt="Carregando..." />
+            </div>
+        );
     }
 
     if (!userData) {
@@ -91,16 +93,16 @@ export const MeuPerfil = () => {
 
     return (
         <div className="meu-perfil-container">
-            <h1>Meu Perfil</h1>
             <div className="meu-perfil-info">
-                <p><strong>Nome:</strong> {userData.name}</p>
-                <p><strong>Email:</strong> {userData.email}</p>
+                <h1 style={{ textAlign: 'start', fontSize: '28px' }}>Resumo do Seu Perfil</h1>
+                <p style={{ fontSize: '18px' }}><strong>Nome:</strong> {userData.name}</p>
+                <p style={{ fontSize: '18px' }}><strong>Email:</strong> {userData.email}</p>
             </div>
 
             <div className="button-container">
                 <button
                     className="edit-button"
-                    onClick={() => setIsEditing(true)} // Ativa o modo de edição
+                    onClick={() => setIsEditing(true)}
                 >
                     Editar Perfil
                 </button>
@@ -128,7 +130,7 @@ export const MeuPerfil = () => {
                     </button>
                     <button
                         className="cancel-button"
-                        onClick={() => setIsEditing(false)} // Cancela a edição
+                        onClick={() => setIsEditing(false)}
                     >
                         Cancelar
                     </button>
@@ -138,7 +140,7 @@ export const MeuPerfil = () => {
             <div className="forgot-password-container">
                 <button
                     className="forgot-password-button"
-                    onClick={() => setShowResetButton(true)} // Exibe o botão de redefinição
+                    onClick={() => setShowResetButton(true)}
                 >
                     Esqueci a senha
                 </button>
@@ -148,7 +150,7 @@ export const MeuPerfil = () => {
                         Um e-mail para redefinição de senha foi enviado! Verifique sua caixa de entrada.
                     </div>
                 ) : (
-                    showResetButton && ( // Só mostra o botão se o estado showResetButton for true
+                    showResetButton && (
                         <div className="password-reset-form">
                             <button
                                 className="reset-button"

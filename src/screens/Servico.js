@@ -151,7 +151,8 @@ export const Servico = ({ userId }) => {
                                 <p>Nome: {chamado.name}</p>
                                 <p>Telefone: {chamado.phone}</p>
                                 <p>Detalhes: {chamado.repairDetails}</p>
-                                {chamado.image && <img src={chamado.image} alt="Chamado" />}
+                                {chamado.image && <img src={chamado.image} alt="Chamado" style={{ width: '20%' }} />}
+                                <br />
                                 <button
                                     className="delete-chamado-btn"
                                     onClick={() => handleDeleteChamado(chamado.id)}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { database, ref, onValue, update } from '../screens/firebase';
-import { Bar } from 'react-chartjs-2'; // Importando o gráfico
+import { database, ref, onValue, update, push } from '../screens/firebase';
+
+import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, BarElement, Title, Tooltip, Legend, LinearScale } from 'chart.js';
 import '../styles/ScreenAdmin.css';
 
-// Registrando os componentes do Chart.js
 ChartJS.register(CategoryScale, BarElement, Title, Tooltip, Legend, LinearScale);
 
 const ScreenAdmin = () => {
@@ -14,9 +14,9 @@ const ScreenAdmin = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [error, setError] = useState('');
     const [viewOption, setViewOption] = useState('');
-    const [openChamadosCount, setOpenChamadosCount] = useState(0); // Contador para chamados em aberto
-    const [completedChamadosCount, setCompletedChamadosCount] = useState(0); // Contador para chamados Realizados
-    const [desistenciasCount, setDesistenciasCount] = useState(0); // Contador para chamados desistidos
+    const [openChamadosCount, setOpenChamadosCount] = useState(0);
+    const [completedChamadosCount, setCompletedChamadosCount] = useState(0);
+    const [desistenciasCount, setDesistenciasCount] = useState(0);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -62,6 +62,21 @@ const ScreenAdmin = () => {
         }
     }, [isAuthenticated, viewOption]);
 
+    const [isZoomed, setIsZoomed] = useState(false);
+    const [zoomedImage, setZoomedImage] = useState('');
+
+
+    const handleImageClick = (imageUrl) => {
+        setZoomedImage(imageUrl);
+        setIsZoomed(true);
+    };
+
+    const closeZoom = () => {
+        setIsZoomed(false);
+        setZoomedImage('');
+    };
+
+
     const handleMarkAsCompleted = (chamadoId) => {
         const chamadoRef = ref(database, `Chamados/${chamadoId}`);
 
@@ -71,6 +86,50 @@ const ScreenAdmin = () => {
             })
             .catch((error) => {
                 console.error('Erro ao marcar pedido como Realizado:', error);
+            });
+    };
+
+    const handleImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => setProductImage(reader.result); // Base64 da imagem
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const [productName, setProductName] = useState('');
+    const [productDescription, setProductDescription] = useState('');
+    const [productPrice, setProductPrice] = useState('');
+    const [productImage, setProductImage] = useState(null);
+
+    const handleProductSubmit = (e) => {
+        e.preventDefault();
+
+        if (!productName || !productDescription || !productPrice || !productImage) {
+            alert('Preencha todos os campos!');
+            return;
+        }
+
+        const productsRef = ref(database, 'Products');
+
+        const newProduct = {
+            name: productName,
+            description: productDescription,
+            price: parseFloat(productPrice),
+            image: productImage,
+        };
+
+        push(productsRef, newProduct)
+            .then(() => {
+                alert('Produto adicionado com sucesso!');
+                setProductName('');
+                setProductDescription('');
+                setProductPrice('');
+                setProductImage('');
+            })
+            .catch((error) => {
+                console.error('Erro ao adicionar produto:', error);
             });
     };
 
@@ -164,6 +223,7 @@ const ScreenAdmin = () => {
                     <div>
                         <button onClick={() => setViewOption('dados')}>Visualizar dados</button>
                         <button onClick={() => setViewOption('chamados')}>Visualizar chamados abertos</button>
+                        {/* <button onClick={() => setViewOption('eccomerce')}>Administrar Eccomerce</button> */}
                     </div>
 
                     {/* Condicional para mostrar os dados com base na opção escolhida */}
@@ -216,16 +276,17 @@ const ScreenAdmin = () => {
                                             <td>
                                                 {chamado.image ? (
                                                     <img
-                                                        src={URL.createObjectURL(
-                                                            new Blob([chamado.image], { type: 'image/jpeg' })
-                                                        )}
+                                                        src={chamado.image}
                                                         alt="Chamado"
                                                         width="100"
+                                                        style={{ borderRadius: '8px', objectFit: 'cover', cursor: 'pointer' }}
+                                                        onClick={() => handleImageClick(chamado.image)} // Evento de clique
                                                     />
                                                 ) : (
                                                     'Sem imagem'
                                                 )}
                                             </td>
+
                                             <td>{chamado.status}</td>
                                             <td>
                                                 {chamado.status !== 'Realizado' && (
@@ -242,6 +303,59 @@ const ScreenAdmin = () => {
                             </table>
                         </div>
                     )}
+
+                    {viewOption === 'eccomerce' && (
+                        <div>
+                            <h2>Adicionar Produto</h2>
+                            <form onSubmit={handleProductSubmit} className="product-form">
+                                <div className="form-group">
+                                    <label htmlFor="productName">Nome do Produto:</label>
+                                    <input
+                                        type="text"
+                                        id="productName"
+                                        value={productName}
+                                        onChange={(e) => setProductName(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="productDescription">Descrição:</label>
+                                    <textarea
+                                        id="productDescription"
+                                        value={productDescription}
+                                        onChange={(e) => setProductDescription(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="productPrice">Preço (R$):</label>
+                                    <input
+                                        type="number"
+                                        id="productPrice"
+                                        value={productPrice}
+                                        onChange={(e) => setProductPrice(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="productImage">Imagem:</label>
+                                    <input
+                                        type="file"
+                                        id="productImage"
+                                        onChange={handleImageUpload}
+                                        required
+                                    />
+                                </div>
+                                <button type="submit" className="submit-button">Adicionar Produto</button>
+                            </form>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {isZoomed && (
+                <div className="zoom-overlay" onClick={closeZoom}>
+                    <img src={zoomedImage} alt="Zoomed" className="zoomed-image" />
                 </div>
             )}
         </div>

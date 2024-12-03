@@ -30,7 +30,7 @@ const Home = () => {
     setIsModalOpen(false);
     setTimeout(() => {
       setIsModalOpen(true);
-    }, 6000);
+    }, 12000);
   };
 
   const handleOpenQrModal = () => {
@@ -221,8 +221,8 @@ const Home = () => {
         <div className="modal">
           <div className="modal-content">
             <h2>Baixe também nosso aplicativo!</h2>
-            <p>Experimente nossos serviços de forma ainda mais prática e rápida.</p>
-            <button className="modal-download-button" onClick={handleOpenQrModal}>Download</button>
+            <p>Experimente nossos serviços de forma ainda mais prática e rápida baixando nosso site na versão Progressive Web App (PWA).</p>
+            {/* <button className="modal-download-button" onClick={handleOpenQrModal}>Download</button> */}
             <br />
             <button onClick={handleCloseModal} className="modal-close-button">Fechar</button>
           </div>

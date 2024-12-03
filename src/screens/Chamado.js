@@ -10,10 +10,25 @@ export const Chamado = () => {
     const [desiredDate, setDesiredDate] = useState('');
     const [preferredTechnician, setPreferredTechnician] = useState('');
     const [image, setImage] = useState(null);
+    const [repairDetails, setRepairDetails] = useState('');
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
-    const [repairDetails, setRepairDetails] = useState('');
     const [suggestionImages, setSuggestionImages] = useState([]);
+    const [imagePreview, setImagePreview] = useState('');
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+
+        // Para exibir uma pré-visualização local da imagem
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreview(reader.result);
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,8 +39,8 @@ export const Chamado = () => {
             serviceType,
             desiredDate,
             preferredTechnician,
-            image: '',
-            repairDetails
+            image: '', // Adicionado posteriormente
+            repairDetails,
         };
 
         try {
@@ -34,145 +49,19 @@ export const Chamado = () => {
                 const imageRef = storageRef(storage, `images/${Date.now()}_${image.name}`);
                 await uploadBytes(imageRef, image);
                 const imageUrl = await getDownloadURL(imageRef);
-                chamadoData.image = imageUrl;
+                chamadoData.image = imageUrl; // Salvando a URL no objeto chamadoData
             }
 
             const newChamadoRef = ref(database, 'Chamados/' + Date.now());
             await set(newChamadoRef, chamadoData);
             console.log('Chamado salvo com sucesso!');
 
-            let newSuggestions = [];
-            let newSuggestionImages = [];
-            if (serviceType === 'Reparo de Computadores') {
-                if (repairDetails === 'HD não está funcionando') {
-                    newSuggestions = [
-                        'Peça de reposição: HD',
-                        'Software de diagnóstico: AIDA64'
-                    ];
-                    newSuggestionImages = [
-                        'https://blogdocftv.com/wp-content/uploads/2018/04/hd-seagate-skyhalk.png',
-                        'https://store-images.microsoft.com/image/apps.3123.13510798884987542.689d0953-1168-4bc4-8942-23b988b99331.cb456ed4-e854-4ade-b494-f3ebe3f7cfe5'
-                    ];
-                } else if (repairDetails === 'Computador está lento') {
-                    newSuggestions = [
-                        'Peça de reposição: Memória RAM Kingston Fury',
-                        'Software de limpeza: CCleaner'
-                    ];
-                    newSuggestionImages = [
-                        'https://www.kabum.com.br/_next/image?url=https%3A%2F%2Fimages.kabum.com.br%2Fprodutos%2Ffotos%2F503027%2Fmemoria-kingston-fury-renegade-rgb-96gb-2x48gb-6400mt-s-ddr5-cl32-dimm-prata-xmp-kf564c32rsak2-96_1698692059_g.jpg&w=640&q=100',
-                        'https://img.utdstc.com/icon/b11/a66/b11a66fbf96d4c79ac0b6c66ecef89c454ff5a604724e1969e7ec945504ecc57:200'
-                    ];
-                } else if (repairDetails === 'Problemas de inicialização') {
-                    newSuggestions = [
-                        'Peça de reposição: HD',
-                        'Software de diagnóstico: AIDA64'
-                    ];
-                    newSuggestionImages = [
-                        'https://blogdocftv.com/wp-content/uploads/2018/04/hd-seagate-skyhalk.png',
-                        'https://store-images.microsoft.com/image/apps.3123.13510798884987542.689d0953-1168-4bc4-8942-23b988b99331.cb456ed4-e854-4ade-b494-f3ebe3f7cfe5'
-                    ];
-                } else if (repairDetails === 'Outro') {
-                    newSuggestions = [
-                        'Peça de reposição: HD',
-                        'Peça de reposição: Memória RAM',
-                        'Software de diagnóstico: AIDA64'
-                    ];
-                    newSuggestionImages = [
-                        'https://example.com/hd-image.jpg',
-                        'https://example.com/ram-image.jpg',
-                        'https://example.com/aida64-image.jpg'
-                    ];
-                }
-            } else if (serviceType === 'Manutenção de Redes') {
-                if (repairDetails === 'Problemas de conexão') {
-                    newSuggestions = [
-                        'Peça de reposição: Roteador',
-                        'Software de diagnóstico de rede: Wireshark'
-                    ];
-                    newSuggestionImages = [
-                        'https://cdn.shopify.com/s/files/1/0170/0955/products/roteador-ac-1200mbps-tp-link-tl-wr840n_1024x1024.jpg?v=1606889645',
-                        'https://www.wireshark.org/assets/images/wireshark.png'
-                    ];
-                } else if (repairDetails === 'Rede lenta') {
-                    newSuggestions = [
-                        'Peça de reposição: Switch de Rede',
-                        'Software de otimização de rede: NetLimiter'
-                    ];
-                    newSuggestionImages = [
-                        'https://22536.cdn.simplo7.net/static/22536/sku/eletronicos-switch-de-rede-switch-de-rede-8-portas-mercusys-10-100mbps-p-1675258162424.jpg',
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SvsUrR8LnhSe2YwxSbem4FhMYg66FZOewA&s'
-                    ];
-                } else if (repairDetails === 'Falha de hardware') {
-                    newSuggestions = [
-                        'Peça de reposição: Placa de Rede',
-                        'Software de diagnóstico de hardware: HWMonitor'
-                    ];
-                    newSuggestionImages = [
-                        'https://images-na.ssl-images-amazon.com/images/I/61SJPVbby2L._AC_SL1500_.jpg',
-                        'https://www.cpuid.com/medias/images/hwmonitor.png'
-                    ];
-                } else if (repairDetails === 'Outro') {
-                    newSuggestions = [
-                        'Peça de reposição: Roteador',
-                        'Peça de reposição: Switch de Rede',
-                        'Software de diagnóstico de rede: Wireshark'
-                    ];
-                    newSuggestionImages = [
-                        'https://cdn.shopify.com/s/files/1/0170/0955/products/roteador-ac-1200mbps-tp-link-tl-wr840n_1024x1024.jpg?v=1606889645',
-                        'https://cdn.shopify.com/s/files/1/0170/0955/products/switch-de-rede-tp-link-tl-sf1005d_1024x1024.jpg?v=1606889645',
-                        'https://www.wireshark.org/assets/images/wireshark.png'
-                    ];
-                }
-            } else if (serviceType === 'Instalação de Softwares') {
-                if (repairDetails === 'Software não está funcionando') {
-                    newSuggestions = [
-                        'Reinstalar software',
-                        'Verificar compatibilidade de sistema'
-                    ];
-                    newSuggestionImages = [
-                        'https://www.example.com/software-installation.jpg',
-                        'https://www.example.com/system-compatibility.jpg'
-                    ];
-                } else if (repairDetails === 'Erro de instalação') {
-                    newSuggestions = [
-                        'Verificar requisitos do sistema',
-                        'Baixar versão correta do software'
-                    ];
-                    newSuggestionImages = [
-                        'https://www.example.com/system-requirements.jpg',
-                        'https://www.example.com/download-software.jpg'
-                    ];
-                } else if (repairDetails === 'Licença não válida') {
-                    newSuggestions = [
-                        'Atualizar licença',
-                        'Contatar suporte do software'
-                    ];
-                    newSuggestionImages = [
-                        'https://manuaisti.anac.gov.br/windows/img/win10-install03.png?style=centershadow',
-                        'https://filestore.community.support.microsoft.com/api/images/cb166710-e73b-4260-8c10-9140bd74dfae?upload=true'
-                    ];
-                } else if (repairDetails === 'Outro') {
-                    newSuggestions = [
-                        'Reinstalar software',
-                        'Verificar compatibilidade de sistema',
-                        'Atualizar licença'
-                    ];
-                    newSuggestionImages = [
-                        'https://www.example.com/software-installation.jpg',
-                        'https://www.example.com/system-compatibility.jpg',
-                        'https://www.example.com/license-update.jpg'
-                    ];
-                }
-            }
-
-
-            setSuggestions(newSuggestions);
-            setSuggestionImages(newSuggestionImages);
             setSubmissionSuccess(true);
         } catch (error) {
             console.error('Erro ao salvar chamado:', error);
         }
 
+        // Resetando o formulário
         setName('');
         setPhone('');
         setServiceType('');
@@ -180,19 +69,44 @@ export const Chamado = () => {
         setPreferredTechnician('');
         setImage(null);
         setRepairDetails('');
+        setImagePreview('');
     };
-
 
     const formatPhone = (value) => {
         const cleanValue = value.replace(/\D/g, '');
-
-        const formattedPhone = cleanValue.replace(/(\d{2})(\d{1})(\d{0,4})(\d{0,4})/, '($1) $2$3-$4');
-
-        return formattedPhone.substring(0, 15);
+        return cleanValue.replace(/(\d{2})(\d{1})(\d{0,4})(\d{0,4})/, '($1) $2$3-$4').substring(0, 15);
     };
+
     const handlePhoneChange = (e) => {
         setPhone(formatPhone(e.target.value));
     };
+
+
+
+
+
+
+
+
+
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        serviceType: '',
+        desiredDate: '',
+        preferredTechnician: '',
+        repairDetails: '',
+        image: null,
+    });
+
+
 
     const getCurrentDate = () => {
         const today = new Date();
@@ -310,7 +224,8 @@ export const Chamado = () => {
                             <input
                                 type="file"
                                 id="image"
-                                onChange={(e) => setImage(e.target.files[0])}
+                                accept="image/*"
+                                onChange={handleImageChange}
                             />
                         </div>
                         <button type="submit" style={{ background: '#ffcc00', color: 'black', fontWeight: '700' }} className="submit-button">Enviar</button>

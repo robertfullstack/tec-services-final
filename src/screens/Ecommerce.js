@@ -20,14 +20,14 @@ export const Ecommerce = () => {
         },
         {
             id: 8,
-            name: 'Hd 1tb P/Desktop Seagate 3.5 Sata3 (ST1000VM002',
+            name: 'Hd 1tb P/Desktop Seagate 3.5 Sata3 (ST1000VM002)',
             price: 195,
             category: 'HDs',
             img: 'https://m.media-amazon.com/images/I/61FLUSJEDUL._AC_SX679_.jpg'
         },
         {
             id: 9,
-            name: 'HD Interno Seagate - EXOS X20 - 18TB - SAS 12Gb/s - 7200 RPM - 256 MB - MPN: ST18000NM000D',
+            name: 'HD Interno Seagate - EXOS X20 - 18TB - SAS 12Gb/s',
             price: 4674,
             category: 'HDs',
             img: 'https://pontobr.jetassets.com.br/produto/20240917154850_7636992364_D.jpg'
@@ -41,7 +41,7 @@ export const Ecommerce = () => {
         },
         {
             id: 11,
-            name: 'Placa Mae Gigabyte X670E Aorus Xtreme, DDR5, Socket AM5, E-ATX, Chipset AMD X670, X670E-AORUS-XTREME',
+            name: 'Placa Mae Gigabyte X670E Aorus Xtreme, DDR5, Socket AM5',
             price: 5999,
             category: 'Placa Mãe',
             img: 'https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/x/6/x670e-aorus-xtreme2.jpg'
@@ -52,9 +52,9 @@ export const Ecommerce = () => {
     const [priceRange, setPriceRange] = useState(7000);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const categories = ['Eletrônicos', 'Computadores', 'Acessórios', 'HDs', 'Placa Mãe'];
+    const categories = ['Computadores', 'HDs', 'Placa Mãe'];
 
-    const navigate = useNavigate(); // Inicializa o hook para navegação
+    const navigate = useNavigate();
 
     const handleCategoryChange = (category) => {
         if (selectedCategories.includes(category)) {
@@ -123,7 +123,7 @@ export const Ecommerce = () => {
                             max="7000"
                             value={priceRange}
                             onChange={handlePriceChange}
-                            className="price-range" style={{ width: '80%' }}
+                            className="price-range"
                         />
                     </div>
                 </aside>

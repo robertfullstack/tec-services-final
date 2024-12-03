@@ -1,251 +1,152 @@
 .meu-perfil-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-}
+    font-family: Arial, sans-serif;
 
-.meu-perfil-container h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-}
+    .meu-perfil-info {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin-bottom: 20px;
 
-.meu-perfil-info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
 
-.meu-perfil-info p {
-    font-size: 1.1rem;
-    color: #555;
-    margin: 5px 0;
-}
-
-.meu-perfil-info p strong {
-    color: #333;
-    font-weight: 600;
-}
-
-.loading-message {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #666;
-}
-
-.no-profile-message {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #e74c3c;
-    font-weight: 600;
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.edit-button {
-    background-color: #3498db;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-
-    &:hover {
-        background-color: #2980b9;
-    }
-}
-
-.meu-perfil-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    max-width: 900px;
-    margin: 20px auto;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-}
-
-.meu-perfil-container h1 {
-    font-size: 2.5rem;
-    color: #3498db;
-    margin-bottom: 25px;
-    text-align: center;
-    font-weight: 600;
-}
-
-.meu-perfil-info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.meu-perfil-info p {
-    font-size: 1.2rem;
-    color: #555;
-    margin: 5px 0;
-}
-
-.meu-perfil-info p strong {
-    color: #3498db;
-    font-weight: 600;
-}
-
-.loading-message,
-.no-profile-message {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #666;
-}
-
-.no-profile-message {
-    color: #e74c3c;
-    font-weight: 600;
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.edit-button {
-    background-color: #3498db;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 5px;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
-    max-width: 250px;
-    margin-top: 15px;
-
-    &:hover {
-        background-color: #2980b9;
-        transform: scale(1.05);
+        p {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
     }
 
-    &:active {
-        transform: scale(1);
-    }
-}
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
 
-.forgot-password-container {
-    margin-top: 30px;
-    text-align: center;
-    width: 100%;
-}
+        .edit-button {
+            background-color: #ffcc00;
+            box-shadow: rgba(0, 0, 0, 0.251) 1px 1px 10px;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: black;
 
-.forgot-password-button {
-    background-color: #f39c12;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-
-    &:hover {
-        background-color: #e67e22;
-        transform: scale(1.05);
+            &:hover {
+                box-shadow: none;
+            }
+        }
     }
 
-    &:active {
-        transform: scale(1);
+    .edit-profile-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+
+            &:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+        }
+
+        .save-button,
+        .cancel-button {
+            background-color: #ffcc00;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            font-size: 14px;
+            box-shadow: rgba(0, 0, 0, 0.251) 1px 1px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: #333;
+
+            &:hover {
+                box-shadow: none;
+            }
+        }
+
+        .cancel-button {
+            background-color: black;
+            color: white;
+
+            &:hover {}
+        }
     }
-}
 
-.password-reset-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
+    .forgot-password-container {
+        text-align: center;
 
-.password-reset-form input {
-    padding: 12px;
-    width: 100%;
-    max-width: 350px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    margin-top: 10px;
-    transition: border-color 0.3s ease;
+        .forgot-password-button {
+            background-color: transparent;
+            color: #007bff;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease;
 
-    &:focus {
-        border-color: #3498db;
-        outline: none;
+            &:hover {
+                color: #0056b3;
+            }
+        }
+
+        .password-reset-form {
+            margin-top: 10px;
+
+            .reset-button {
+                background-color: #28a745;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 15px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: #218838;
+                }
+            }
+        }
+
+        .success-message {
+            color: #28a745;
+            font-size: 14px;
+            margin-top: 10px;
+        }
     }
-}
 
-.reset-button {
-    background-color: #27ae60;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 8px;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    margin-top: 15px;
-    width: 100%;
-    max-width: 250px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-
-    &:hover {
-        background-color: #2ecc71;
-        transform: scale(1.05);
+    .loading-message {
+        text-align: center;
+        font-size: 16px;
+        color: #555;
     }
 
-    &:active {
-        transform: scale(1);
+    .no-profile-message {
+        text-align: center;
+        font-size: 16px;
+        color: #ff0000;
     }
-}
-
-.success-message {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #2ecc71;
-    color: white;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-.error-message {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #e74c3c;
-    color: white;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
 }
